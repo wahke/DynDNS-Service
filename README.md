@@ -122,43 +122,63 @@ Beispielauszug:
 
 ```ini
 APP_ENV=prod
+
+# Timezone
 APP_TIMEZONE=Europe/Luxembourg
+
+# URL
 BASE_URL=https://dyndns.example.com
 
+# Datenbank MySQL
 DB_HOST=localhost
 DB_PORT=3306
 DB_NAME=dyndns
 DB_USER=dyndns
 DB_PASS=secret
 
+# Hetzner DNS API
 HETZNER_DNS_API=https://dns.hetzner.com/api/v1
 HETZNER_DNS_TOKEN=REPLACE_ME
 
-# Global TTL (60..86400), nur Admin – Nutzer sehen/ändern TTL nicht.
+# Optional: global TTL (60..86400), hidden from users
 TTL_DEFAULT=300
 
-# Gesperrte Subdomains (Komma/Leerzeichen/Semikolon getrennt)
+# Blacklist-Subdomains (comma/space/; separated)
 SUBDOMAIN_BLACKLIST=www,mail,ftp,admin
 
-# Branding / Mails
+# Branding / E-Mail
 BRAND_NAME=DynDNS
-BRAND_LOGO_URL=https://example.com/logo.png
-BRAND_IMPRINT_URL=https://example.com/impressum
-BRAND_PRIVACY_URL=https://example.com/datenschutz
-BRAND_TERMS_URL=https://example.com/agb
-FOOTER_COPYRIGHT=© 2025 DynDNS · Hetzner DNS API · PHP · MySQL
+BRAND_LOGO_URL=
+BRAND_IMPRINT_URL=
+BRAND_PRIVACY_URL=
+BRAND_TERMS_URL=
+FOOTER_COPYRIGHT=
 EMAIL_PRIMARY_COLOR=#4e7be6
 
+# AdSense
+ADSENSE_CLIENT=
+ADSENSE_SLOT_INDEX=
+ADSENSE_SLOT_DASHBOARD=
+
+# Eigener Fallback-Text (wird HTML-escaped)
+DONATE_FALLBACK_TEXT=Leider blockieren Sie die Ads-Werbung. Wenn Sie uns anders unterstützen möchten, freuen wir uns über eine Spende:
+
+# Spenden-Buttons (nur gesetzte URLs werden angezeigt)
+DONATE_KOFI_URL=
+DONATE_PAYPAL_URL=
+DONATE_PATREON_URL=
+DONATE_CUSTOM_LABEL=
+DONATE_CUSTOM_URL=
+
+# Falls du lieber ganze HTML-Box selbst definieren willst, hat das Vorrang:
+# ADSENSE_FALLBACK_HTML=<h4>Danke!</h4><p class="small">Ihre Unterstützung hilft...</p><p><a class="btn secondary" href="https://..." target="_blank" rel="noopener">Jetzt spenden</a></p>
+
+# Email Adresse
 MAIL_FROM=noreply@example.com
 MAIL_FROM_NAME=DynDNS Service
 SUPPORT_EMAIL=support@example.com
 
-# AdSense (optional)
-ADSENSE_CLIENT=ca-pub-xxxxxxxxxxxxxxxx
-ADSENSE_SLOT_INDEX=
-ADSENSE_SLOT_DASHBOARD=
-
-# Nur für Tests: 1 = DNS/DB-Löschungen im Cron überspringen
+# Safety: skip destructive actions in cron normal run (0/1)
 DRY_RUN_CLEANUP=0
 ```
 
