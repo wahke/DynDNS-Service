@@ -26,9 +26,7 @@
     </div>
   </section>
 
-  <section class="hero" style="margin-top:18px">
   <?php $slot = $GLOBALS['env']['ADSENSE_SLOT_INDEX'] ?? ''; include __DIR__ . '/partials/ad_slot.php'; ?>
-  </section>
 
   <section class="grid two" style="margin-top:18px">
     <div class="card">
