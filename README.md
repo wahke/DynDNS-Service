@@ -94,7 +94,7 @@ bootstrap.php         # .env + PDO + Includes
 3. **Datenbank migrieren**:
    ```bash
    mysql -u <user> -p <db> < sql/migrations.sql
-````
+   ````
 
 4. **Admin** anlegen (Passworthash erzeugen):
 
