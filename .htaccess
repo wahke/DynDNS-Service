@@ -1,0 +1,10 @@
+# Deny access to sensitive files
+<Files ".env">
+  Require all denied
+</Files>
+<Files "bootstrap.php">
+  Require all denied
+</Files>
+<FilesMatch "\.(sql|md)$">
+  Require all denied
+</FilesMatch>

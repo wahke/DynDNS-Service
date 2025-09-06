@@ -1,0 +1,44 @@
+CREATE TABLE users (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  username VARCHAR(64) NOT NULL UNIQUE,
+  password_hash VARCHAR(255) NOT NULL,
+  role ENUM('user','admin') NOT NULL DEFAULT 'user',
+  is_active TINYINT(1) NOT NULL DEFAULT 1,
+  ddns_token CHAR(64) NOT NULL,
+  email_verification_token CHAR(64) NULL,
+  email_verified_at DATETIME NULL,
+  annual_confirm_token CHAR(64) NULL,
+  annual_confirm_due DATE NOT NULL,
+  annual_confirmed_at DATETIME NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE domains (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL UNIQUE,          -- z.B. example.com
+  zone_id VARCHAR(64) NOT NULL,               -- Hetzner Zone-ID
+  is_active TINYINT(1) NOT NULL DEFAULT 1,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE records (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  user_id BIGINT UNSIGNED NOT NULL,
+  domain_id BIGINT UNSIGNED NOT NULL,
+  sub_name VARCHAR(63) NOT NULL,              -- z.B. "home"
+  -- fqdn kann in PHP berechnet werden
+  hetzner_record_id_a VARCHAR(64) NULL,
+  hetzner_record_id_aaaa VARCHAR(64) NULL,
+  last_ipv4 VARCHAR(45) NULL,
+  last_ipv6 VARCHAR(45) NULL,
+  ttl INT NOT NULL DEFAULT 300,
+  active TINYINT(1) NOT NULL DEFAULT 1,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  UNIQUE KEY uq_domain_sub (domain_id, sub_name),
+  CONSTRAINT fk_records_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+  CONSTRAINT fk_records_domain FOREIGN KEY (domain_id) REFERENCES domains(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
